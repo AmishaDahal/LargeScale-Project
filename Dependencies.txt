@@ -1,0 +1,11 @@
+import os
+import sys
+# List of dependencies 
+dependencies = [
+    "pyspark",
+    "pyarrow",
+    "grpcio",
+    "protobuf",
+    "grpcio-tools",
+    "--user grpcio-status"  # Add --user flag specifically for grpcio-status
+]
