@@ -98,8 +98,22 @@ redirect_df.show()
 
 # In[13]:
 
+# Step 1: Join to match page_title and rd_title, and include namespace
+redirects_with_targets = redirect_df.join(
+    page_df, 
+    (page_df["page_title"] == redirect_df["rd_title"]) & (page_df["page_namespace"] == redirect_df["rd_namespace"]),
+).select(
+    redirect_df["rd_from"].alias("redirect_source_id"),  
+    page_df["page_id"].alias("redirect_target_id")  
+)
 
-# Step 1: Join Page and LinkTarget to resolve link targets to actual pages
+# Remove duplicates by taking distinct pairs of redirect_source_id and redirect_target_id
+redirects_with_targets = redirects_with_targets.distinct()
+
+# Show the result with IDs
+redirects_with_targets.show()
+
+# Step 2: Join Page and LinkTarget to resolve link targets to actual pages
 page_linktarget_df = linktarget_df.join(
     page_df,
     (linktarget_df.lt_title == page_df.page_title) & (linktarget_df.lt_namespace == page_df.page_namespace),
@@ -115,7 +129,7 @@ page_linktarget_df = linktarget_df.join(
 # In[14]:
 
 
-# Step 2: Join page_linktarget_df with PageLink to get source_id and resolved target_id
+# Step 3: Join page_linktarget_df with PageLink to get source_id and resolved target_id
 page_linktarget_with_pagelink_df = pagelink_df.join(
     page_linktarget_df,
     (pagelink_df.pl_target_id == page_linktarget_df.link_target_id),
@@ -125,25 +139,6 @@ page_linktarget_with_pagelink_df = pagelink_df.join(
     page_linktarget_df.page_id.alias("page_id_target_id") #target page ID from Page table 
 ).filter(page_linktarget_df["page_namespace"] == '0')
 page_linktarget_with_pagelink_df.show()
-
-
-# In[15]:
-
-
-# Step 3: Join to match page_title and rd_title, and include namespace
-redirects_with_targets = redirect_df.join(
-    page_linktarget_df, 
-    (page_linktarget_df["page_title"] == redirect_df["rd_title"]) & (page_linktarget_df["page_namespace"] == redirect_df["rd_namespace"]),
-).select(
-    redirect_df["rd_from"].alias("redirect_source_id"),  
-    page_linktarget_df["page_id"].alias("redirect_target_id")  
-)
-
-# Remove duplicates by taking distinct pairs of redirect_source_id and redirect_target_id
-redirects_with_targets = redirects_with_targets.distinct()
-
-# Show the result with IDs
-redirects_with_targets.show()
 
 
 # In[16]:
