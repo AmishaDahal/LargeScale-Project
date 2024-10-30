@@ -1,0 +1,12 @@
+40 points - code & submission quality
+50 points - basic pair construction
+30 points - redirects are accounted for
+20 points - pairs are unique
+40 points - code runs in under 75 minutes using a single r6gd.2xlarge
+total: 0/180
+You are starting with zero points on this assignment because your code did not 
+run properly and appears to be untested in its script form. I want you to get 
+some credit here, so I'll give you 70% of the points back if you fix your code
+and resubmit it by Tuesday, November 5th at 3:00pm. Please email me to set up
+a meeting (either in person or over Zoom). I want to discuss what went wrong 
+and fix it.
