@@ -25,4 +25,4 @@ The entrypoint file for this project is entrypoint.py, which imports the main fu
 # Generating the Zip File
 To package the project files for deployment, use the following PowerShell command:
 ```powershell
-Compress-Archive -Path LSA_1_Project.py -DestinationPath LSA_1_Project.zip"
+Compress-Archive -Path LSA_1_Project.py -DestinationPath LSA_1_Project.zip
