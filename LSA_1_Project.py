@@ -137,6 +137,8 @@ spark.table("pagelinks")\
     .filter(F.col("page_namespace") == '0') \
     .createOrReplaceTempView("page_linktarget_with_pagelink") 
 
+spark.table("page_linktarget_with_pagelink").show(10)
+
 
 # In[23]:
 
